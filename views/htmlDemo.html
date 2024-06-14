@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HTML5 Demo</title>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/style.css">
+	</head>
+
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Hawal Alade</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+					<li class="nav-item active"><a class="nav-link" href="/htmlDemo">Html5 Demo</a></li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="/students">Students</a></li>
+					<li class="nav-item"><a class="nav-link" href="/tas">Teaching Assistants</a></li>
+					<li class="nav-item"><a class="nav-link" href="/courses">Courses</a></li>
+				</ul>
+			</div>
+		</nav>
+		
+		<div class="container">
+			<div class="row">
+				<main class="col-md-12">
+
+					<!-- Start your code here -->
+					<h2>Tables</h2>
+					<table border="1">
+						<caption>Caption: A Sample Student Table</caption>
+						<thead>
+							<tr>
+								<th>Student Number</th>
+								<th>StudentID</th>
+								<th>Program</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="3">131191223</td>
+								<td>hoalade@myseneca.ca</td>
+								<td>BTT</td>
+							</tr>
+							<tr>
+								
+								<td>hawal.ao@outlook.com</td>
+								<td>CPP</td>
+							</tr>
+							<tr>
+								
+								<td>aladehawal@gmail.com</td>
+								<td>CPA</td>
+							</tr>
+
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="3">Table shows 3 students from different programs</td>							
+							</tr>
+
+						</tfoot>
+					</table>
+					<p>The table contains student number, ID and Names.</p>
+
+					<h2>List</h2>
+					<ul>
+						<li>Newnham</li>
+						<li>SIA
+							<ol>
+								<li>BTT</li>
+								<li>CPP</li>
+								<li>CPA</li>
+								<li>SCM</li>
+							</ol>
+						</li>
+						<li>Seneca@York</li>
+						<li>Kings</li>
+						<li>Other</li>
+					</ul>
+					<p>This list contains the different campuses at seneca and the programs available.</p>
+
+
+					<h2>Images</h2>
+					<img src="https://cc-production-uploads-bucket.s3.amazonaws.com/uploads/2019/10/DCN-AG-Seneca-CITE-building-mainweb-1024x576.jpg" width="100%" alt="Newnham">
+					<img src="https://th.bing.com/th/id/R.d061176f48157cb553d256441a48484d?rik=S2nHNg9VJs9pcw&riu=http%3a%2f%2fwww.educare-studyabroad.com%2fstorage%2funiversities%2f7RjuxQ6LWbzsSmUPgh9iOdvmrSrTSmkdb1axYKnU.jpg&ehk=n7sXgmV4iiG8h7yYMVqqh6VKYQZpc6soiAvYBeOlSbg%3d&risl=&pid=ImgRaw&r=0" width="100%" alt="SIA">
+					<img src="https://duhocinec.com/wp-content/uploads/2020/05/12-5-20-seneca-york-1.jpg" width="100%" alt="York">
+					<img src="https://senecaresidence.ca/wp-content/uploads/2017/10/seneca-newnham-revised.jpg" width="100%" alt="Seneca Residence">
+					<p>Pictures of various campuses and seneca residence</p>
+					
+
+					
+					<h2>Audio</h2>
+					<audio controls>
+						<source src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-audio.mp3" type="audio/mp3">
+					</audio>
+					<p>I used the online link for the audio files</p>
+
+
+
+					<h2>Video</h2>
+					<video width="320" height="240" controls>
+						<source src="https://pat-crawford-sdds.netlify.app/shared/fall-2021/web700/A3/sample-video.mp4" type="video/mp4">
+					</video>
+					<p>Included videos that were shared to be viewed online.</p>
+					<!-- End your code here  -->
+
+				</main>
+			</div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	</body>
+</html>
