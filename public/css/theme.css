@@ -1,0 +1,20 @@
+/* Styling for the navigation bar */
+nav.navbar.bg-light {
+    background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Example gradient background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example box shadow */
+  }
+  
+  /* Additional styles for links in the navigation bar */
+  nav.navbar.bg-light a {
+    color: white; /* Ensure text is visible on the gradient background */
+  }
+  
+  /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+/* Styling for the navigation brand */
+.navbar-light .navbar-brand {
+  font-family: 'Roboto', sans-serif; /* Google Font */
+  color: #ff6347; /* New text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow */
+}

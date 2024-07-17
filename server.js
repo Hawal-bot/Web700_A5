@@ -15,6 +15,8 @@ var collegeData = require("./modules/collegeData.js");
 const exp = require("constants");
 
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+
 
 // setting upp the routes
 app.get("/", (req, res) => {
