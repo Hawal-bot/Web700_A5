@@ -1,5 +1,5 @@
 /**********************************************************************************
-WEB700 – Assignment 03
+WEB700 – Assignment 04
 I declare that this assignment is my own work in accordance with Seneca Academic Policy. 
 No part of this assignment has been copied manually or electronically from any other source 
 (including 3rd party web sites) or distributed to other students.
@@ -7,18 +7,24 @@ Name: HAWAL ALADE Student ID: 131191223 Date: 06/14/2024
 *********************************************************************************/
 
 var HTTP_PORT = process.env.PORT||8080;
-const { Console } = require("console");
 var express = require("express");
 var app = express();
 var path = require("path");
 var collegeData = require("./modules/collegeData.js");
-const exp = require("constants");
 
-app.use(express.static("public"));
+
+//Middleware Setup 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
 
-// setting upp the routes
+//Viewing the engine setup
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
+
+// setting up the routes
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./views/home.html"));
 });
@@ -31,6 +37,10 @@ app.get("/htmlDemo", (req, res) => {
     res.sendFile(path.join(__dirname, "./views/htmlDemo.html"));
 });
 
+app.get('/students/add', (req, res) => {
+    res.sendFile(path.join(__dirname, "./views/addStudent.html"));
+});
+  
 app.get("/students", (req, res) => {
     if (req.query.course) {
         collegeData.getStudentsByCourse(req.query.course)
@@ -41,6 +51,17 @@ app.get("/students", (req, res) => {
             .then(data => res.json(data))
             .catch(err => res.json({ message: err }));
     }
+});
+
+
+app.post('/students/add', (req, res) => {
+    collegeData.addStudent(req.body)
+      .then(() => {
+        res.redirect('/students');
+      })
+      .catch(err => {
+        res.status(500).send("Unable to add student");
+      });
 });
 
 app.get("/tas", (req, res) => {
@@ -62,10 +83,7 @@ app.get("/student/:num", (req, res) => {
 });
 
 
-app.use((req, res) => {
-    res.status(404).send("Page Not THERE, Are you sure of the path?");
-});
-
+//Initializing and starting the server
 collegeData.initialize()
     .then(() => {
         app.listen(HTTP_PORT, () => {
@@ -75,3 +93,10 @@ collegeData.initialize()
     .catch(err => {
     console.log("Failed to start server: " + err);
 });
+
+
+// Handling 404 errors
+app.use((req, res) => {
+    res.status(404).send("Page Not THERE, Are you sure of the path?");
+});
+

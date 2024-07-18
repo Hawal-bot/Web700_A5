@@ -1,3 +1,6 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
 /* Styling for the navigation bar */
 nav.navbar.bg-light {
     background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Example gradient background */
@@ -8,9 +11,6 @@ nav.navbar.bg-light {
   nav.navbar.bg-light a {
     color: white; /* Ensure text is visible on the gradient background */
   }
-  
-  /* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
 /* Styling for the navigation brand */
 .navbar-light .navbar-brand {
@@ -18,3 +18,112 @@ nav.navbar.bg-light {
   color: #ff6347; /* New text color */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow */
 }
+
+/* Styling for the navigation links */
+.nav-link {
+  font-family: 'Roboto', sans-serif; /* Google Font */
+  color: #26ff00; /* New text color */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Styling for the navigation links when hovered */
+.nav-link:hover {
+  color: #26ff00; /* New hover color */
+  text-decoration: underline; /* Optional: underline on hover */
+}
+
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+/* Full page gradient for body and html */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to bottom, #4facfe, #00f2fe); /* Gradient background */
+  background-color: #26ff00; /* Fallback solid color */
+  background-image: url('https://th.bing.com/th/id/R.d061176f48157cb553d256441a48484d?rik=S2nHNg9VJs9pcw&riu=http%3a%2f%2fwww.educare-studyabroad.com%2fstorage%2funiversities%2f7RjuxQ6LWbzsSmUPgh9iOdvmrSrTSmkdb1axYKnU.jpg&ehk=n7sXgmV4iiG8h7yYMVqqh6VKYQZpc6soiAvYBeOlSbg%3d&risl=&pid=ImgRaw&r=0'); /* Background image */
+  background-size: cover; /* Ensure image covers the entire background */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Styling for the header */
+header {
+    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow */
+    padding: 10px 0; /* Padding */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* Adjust main content to avoid overlap with fixed header */
+  main {
+    margin-top: 70px; /* Height of header plus some margin */
+    padding: 20px;
+  }
+
+/* Styling for the primary button */
+.btn-primary {
+  background-color: #007bff; /* Solid background color */
+  background: linear-gradient(to right, #0062e6, #33a1fd); /* Gradient background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow */
+  color: white; /* Text color */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 20px; /* Padding */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Hover color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover box shadow */
+}
+
+/* Styling for table cells in odd numbered rows */
+table tr:nth-child(odd) td {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef); /* Gradient background */
+  padding: 10px; /*padding*/
+}
+
+/* Styling for heading elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif; /* Google Font */
+  color: #ff6347; /* New text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow */
+  margin-bottom: 20px; /* Margin bottom */
+}
+
+/* Styling for anchor elements */
+a {
+  color: #ff6347; /* New text color */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+  text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+  color: #ff4500; /* Hover color */
+  text-decoration: underline; /* Optional: underline on hover */
+}
+
+/* Styling for fieldset legends */
+legend {
+  font-family: 'Roboto', sans-serif; /* Google Font */
+  color: #ff6347; /* New text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow */
+  padding: 10px 0; /* Padding top/bottom */
+}
+
+/* Styling for the footer */
+footer {
+    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent background */
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Box shadow */
+    padding: 1px 0; /* Padding */
+    text-align: center; /* Center align text */
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }

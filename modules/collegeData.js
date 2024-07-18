@@ -1,7 +1,7 @@
-const { rejects } = require("assert");
 const fs = require("fs");
-const { resolve } = require("path");
-const { promiseHooks } = require("v8");
+const path = require('path');
+const studentsFilePath = path.join(__dirname, 'data', 'students.json');
+const coursesFilePath = path.join(__dirname, 'data', 'students.json');
 
 class Data{
     constructor(students, courses){
@@ -16,12 +16,14 @@ module.exports.initialize = function () {
     return new Promise( (resolve, reject) => {
         fs.readFile('./data/courses.json','utf8', (err, courseData) => {
             if (err) {
-                reject("unable to load courses"); return;
+                reject("unable to load courses"); 
+                return;
             }
 
             fs.readFile('./data/students.json','utf8', (err, studentData) => {
                 if (err) {
-                    reject("unable to load students"); return;
+                    reject("unable to load students"); 
+                    return;
                 }
 
                 dataCollection = new Data(JSON.parse(studentData), JSON.parse(courseData));
@@ -29,40 +31,37 @@ module.exports.initialize = function () {
             });
         });
     });
-}
+};
 
 module.exports.getAllStudents = function(){
     return new Promise((resolve,reject)=>{
-        if (dataCollection.students.length == 0) {
-            reject("query returned 0 results"); return;
+        if (dataCollection.students.length === 0) {
+            reject("query returned 0 results"); 
+            return;
         }
 
         resolve(dataCollection.students);
-    })
-}
-
-module.exports.getTAs = function () {
-    return new Promise(function (resolve, reject) {
-        var filteredStudents = [];
-
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].TA == true) {
-                filteredStudents.push(dataCollection.students[i]);
-            }
-        }
-
-        if (filteredStudents.length == 0) {
-            reject("query returned 0 results"); return;
-        }
-
-        resolve(filteredStudents);
     });
 };
 
+module.exports.getTAs = function () {
+    return new Promise((resolve, reject) => {
+      const filteredStudents = dataCollection.students.filter(student => student.TA === true);
+  
+      if (filteredStudents.length === 0) {
+        reject("query returned 0 results");
+        return;
+      }
+  
+      resolve(filteredStudents);
+    });
+  };
+
 module.exports.getCourses = function(){
    return new Promise((resolve,reject)=>{
-    if (dataCollection.courses.length == 0) {
-        reject("query returned 0 results"); return;
+    if (dataCollection.courses.length === 0) {
+        reject("query returned 0 results"); 
+        return;
     }
 
     resolve(dataCollection.courses);
@@ -70,59 +69,61 @@ module.exports.getCourses = function(){
 };
 
 module.exports.getStudentByNum = function (num) {
-    return new Promise(function (resolve, reject) {
-        var foundStudent = null;
-
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].studentNum == num) {
-                foundStudent = dataCollection.students[i];
-            }
-        }
-
-        if (!foundStudent) {
-            reject("query returned 0 results"); return;
-        }
-
-        resolve(foundStudent);
+    return new Promise((resolve, reject) => {
+      const foundStudent = dataCollection.students.find(student => student.studentNum === num);
+  
+      if (!foundStudent) {
+        reject("query returned 0 results");
+        return;
+      }
+  
+      resolve(foundStudent);
     });
-};
+  };
+
 
 module.exports.getStudentsByCourse = function (course) {
-    return new Promise(function (resolve, reject) {
-        var filteredStudents = [];
+  return new Promise((resolve, reject) => {
+    const filteredStudents = dataCollection.students.filter(student => student.course === course);
 
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].course == course) {
-                filteredStudents.push(dataCollection.students[i]);
-            }
-        }
+    if (filteredStudents.length === 0) {
+      reject("query returned 0 results");
+      return;
+    }
 
-        if (filteredStudents.length == 0) {
-            reject("query returned 0 results"); return;
-        }
-
-        resolve(filteredStudents);
-    });
+    resolve(filteredStudents);
+  });
 };
 
-function getStudentsByCourse(course) {
-    return new Promise((resolve, reject) => {
-        let studentsByCourse = students.filter(student => student.course === course);
-        if (studentsByCourse.length > 0){
-            resolve(studentsByCourse);
-        } else {
-            reject("No results returned");
-        }
-    });
-}
 
-function getStudentByNum(num) {
-    return new  promise((resolve, reject) => {
-        let student = students.find(student => student.studentNum == num);
-        if (student) {
-            resolve(student);
-        } else {
-            reject("No results returned");
+
+module.exports.addStudent = function (studentData) {
+    return new Promise((resolve, reject) => {
+      fs.readFile('./data/students.json', 'utf8', (err, data) => {
+        if (err) {
+          reject("Unable to read file");
+          return;
         }
+  
+        let students = JSON.parse(data);
+  
+        // Handling the TA checkbox: if it's undefined, set it to false
+        studentData.TA = studentData.TA !== undefined;
+  
+        // Setting the student number to be the length of the students array plus one
+        studentData.studentNum = students.length + 1;
+  
+        // Adding the new student data to the array
+        students.push(studentData);
+  
+        // Writing the updated students array back to the file
+        fs.writeFile('./data/students.json', JSON.stringify(students, null, 2), 'utf8', (err) => {
+          if (err) {
+            reject("Unable to write file");
+            return;
+          }
+          resolve();
+        });
+      });
     });
-}
+};
