@@ -1,10 +1,12 @@
-const fs = require("fs");
+const fs = require('fs');
 const path = require('path');
+
 const studentsFilePath = path.join(__dirname, 'data', 'students.json');
 const coursesFilePath = path.join(__dirname, 'data', 'students.json');
 
-class Data{
-    constructor(students, courses){
+
+class Data {
+    constructor(students, courses) {
         this.students = students;
         this.courses = courses;
     }
@@ -33,10 +35,10 @@ module.exports.initialize = function () {
     });
 };
 
-module.exports.getAllStudents = function(){
-    return new Promise((resolve,reject)=>{
+module.exports.getAllStudents = function() {
+    return new Promise((resolve, reject) => {
         if (dataCollection.students.length === 0) {
-            reject("query returned 0 results"); 
+            reject("query returned 0 results");
             return;
         }
 
@@ -44,86 +46,110 @@ module.exports.getAllStudents = function(){
     });
 };
 
-module.exports.getTAs = function () {
+module.exports.getCourses = function() {
     return new Promise((resolve, reject) => {
-      const filteredStudents = dataCollection.students.filter(student => student.TA === true);
-  
-      if (filteredStudents.length === 0) {
-        reject("query returned 0 results");
-        return;
-      }
-  
-      resolve(filteredStudents);
+        if (dataCollection.courses.length === 0) {
+            reject("query returned 0 results");
+            return;
+        }
+
+        resolve(dataCollection.courses);
     });
-  };
-
-module.exports.getCourses = function(){
-   return new Promise((resolve,reject)=>{
-    if (dataCollection.courses.length === 0) {
-        reject("query returned 0 results"); 
-        return;
-    }
-
-    resolve(dataCollection.courses);
-   });
 };
 
-module.exports.getStudentByNum = function (num) {
+module.exports.getCourseById = function(id) {
     return new Promise((resolve, reject) => {
-      const foundStudent = dataCollection.students.find(student => student.studentNum === num);
-  
-      if (!foundStudent) {
-        reject("query returned 0 results");
-        return;
-      }
-  
-      resolve(foundStudent);
+        let foundCourse = dataCollection.courses.find(course => course.courseId == id);
+        if (foundCourse) {
+            resolve(foundCourse);
+        } else {
+            reject("query returned 0 results");
+        }
     });
-  };
+};
 
-
-module.exports.getStudentsByCourse = function (course) {
+module.exports.getStudentByNum = function(num) {
   return new Promise((resolve, reject) => {
-    const filteredStudents = dataCollection.students.filter(student => student.course === course);
-
-    if (filteredStudents.length === 0) {
-      reject("query returned 0 results");
-      return;
-    }
-
-    resolve(filteredStudents);
+      console.log(`Searching for student with studentNum: ${num}`);
+      let student = dataCollection.students.find(s => s.studentNum == num);
+      if (student) {
+          console.log("Student found:", student);
+          resolve(student);
+      } else {
+          console.log("Student not found");
+          reject("Student not found");
+      }
   });
 };
 
 
-
-module.exports.addStudent = function (studentData) {
+module.exports.updateStudent = function(updatedStudent) {
     return new Promise((resolve, reject) => {
-      fs.readFile('./data/students.json', 'utf8', (err, data) => {
-        if (err) {
-          reject("Unable to read file");
-          return;
+        let index = dataCollection.students.findIndex(s => s.studentNum == updatedStudent.studentNum);
+        if (index !== -1) {
+            dataCollection.students[index] = updatedStudent;
+            fs.writeFile('./data/students.json', JSON.stringify(dataCollection.students, null, 2), 'utf8', (err) => {
+                if (err) {
+                    reject("Unable to write to students.json");
+                } else {
+                    resolve();
+                }
+            });
+        } else {
+            reject("Student not found");
         }
-  
-        let students = JSON.parse(data);
-  
-        // Handling the TA checkbox: if it's undefined, set it to false
-        studentData.TA = studentData.TA !== undefined;
-  
-        // Setting the student number to be the length of the students array plus one
-        studentData.studentNum = students.length + 1;
-  
-        // Adding the new student data to the array
-        students.push(studentData);
-  
-        // Writing the updated students array back to the file
-        fs.writeFile('./data/students.json', JSON.stringify(students, null, 2), 'utf8', (err) => {
-          if (err) {
-            reject("Unable to write file");
+    });
+};
+
+module.exports.getStudentsByCourse = function(course) {
+    return new Promise((resolve, reject) => {
+        const filteredStudents = dataCollection.students.filter(student => student.course === course);
+
+        if (filteredStudents.length === 0) {
+            reject("query returned 0 results");
             return;
-          }
-          resolve();
+        }
+
+        resolve(filteredStudents);
+    });
+};
+
+module.exports.addStudent = function(studentData) {
+    return new Promise((resolve, reject) => {
+        studentData.TA = studentData.TA !== undefined;
+
+        studentData.studentNum = dataCollection.students.length + 1;
+
+        dataCollection.students.push(studentData);
+
+        fs.writeFile('./data/students.json', JSON.stringify(dataCollection.students, null, 2), 'utf8', (err) => {
+            if (err) {
+                reject("Unable to write to students.json");
+                return;
+            }
+            resolve();
         });
-      });
+    });
+};
+
+
+module.exports.updateStudent = function(updatedStudent) {
+    return new Promise((resolve, reject) => {
+        let index = dataCollection.students.findIndex(s => s.studentNum == updatedStudent.studentNum);
+        if (index !== -1) {
+            updatedStudent.TA = updatedStudent.TA !== undefined; // Handle TA checkbox
+            dataCollection.students[index] = updatedStudent;
+
+            // Save the updated students array to the file
+            fs.writeFile('./data/students.json', JSON.stringify(dataCollection.students, null, 2), 'utf8', (err) => {
+                if (err) {
+                    reject("Unable to write to students.json");
+                } else {
+                    resolve();
+                }
+            });
+        } else {
+            reject("Student not found");
+        }
     });
 };
