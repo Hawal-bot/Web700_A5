@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home</title>
+		<title>Add Student </title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="/css/theme.css">
@@ -15,7 +15,7 @@
 
 
 					<!-- Start your code here -->
-                    <h1>Add a new Student</h1>
+                    <h2>Add a new Student</h2>
 					<form method="post" action="/students/add">
                         <fieldset>
                             <legend>Personal Information</legend>
@@ -107,6 +107,18 @@
                             </div>
                         </fieldset>
                         <hr />
+
+                        {{#if courses}}
+                        <select class="form-control" name="course" id="course">
+                            <option value="">Select Course</option>
+                            {{#each courses}}
+                            <option value="{{courseId}}">{{courseCode}}</option>
+                            {{/each}}
+                        </select>
+                        {{else}}
+                        <div>No Courses</div>
+                        {{/if}}
+                        
                         <input type="submit" class="btn btn-primary float-right" value="Add Student" /><br /><br /><br />
                     </form>
                     <!-- End your code here  -->

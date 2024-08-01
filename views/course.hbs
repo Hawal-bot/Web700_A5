@@ -1,24 +1,26 @@
-<div class="row"> 
-    <div class="col-md-12"> 
-        <br> 
-        <h2>{{course.courseDescription}}</h2> 
-        <hr /> 
-        <form> 
-            <div class="row"> 
-                <div class="col-md-3"> 
-                    <div class="form-group"> 
-                        <label for="courseDescription">Course Code</label> 
-                        <input class="form-control" id="courseCode" name="courseCode" type="text" readonly value="{{course.courseCode}}" /> 
-                    </div> 
-                </div> 
-                <div class="col-md-9"> 
-                    <div class="form-group"> 
-                        <label for="courseDescription">Course Description</label> 
-                        <input class="form-control" id="courseDescription" name="courseDescription" type="text" readonly value="{{course.courseDescription}}" />
-                    </div> 
-                </div> 
-            </div> 
-            <hr /> 
-        </form> 
-    </div> 
-</div> 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Details</title>
+</head>
+<body>
+    <h1>Course Details</h1>
+    <form method="POST" action="/course/update">
+        <!-- Hidden field to keep track of the course being edited -->
+        <input type="hidden" name="courseId" value="{{course.courseId}}">
+        
+        <!-- Course Code -->
+        <label for="courseCode">Course Code:</label>
+        <input type="text" name="courseCode" id="courseCode" value="{{course.courseCode}}" required><br>
+        
+        <!-- Course Description -->
+        <label for="courseDescription">Course Description:</label>
+        <input type="text" name="courseDescription" id="courseDescription" value="{{course.courseDescription}}" required><br>
+        
+        <!-- Submit button to update the course -->
+        <button type="submit">Update Course</button>
+    </form>
+    <!-- Button to delete the course -->
+    <a href="/course/delete/{{course.courseId}}" class="btn btn-danger">Delete Course</a>
+</body>
+</html>

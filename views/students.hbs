@@ -1,4 +1,12 @@
-<div class="row">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="row">
     <div class="col-md-12">
         <br>
         <h2>Students</h2>
@@ -13,6 +21,7 @@
                         <th>Address</th>
                         <th>Status</th>
                         <th>Course ID</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,15 +33,19 @@
                             <td>{{this.address}}</td>
                             <td>{{this.status}}</td>
                             <td><a href="/students?course={{this.course}}">{{this.course}}</a></td>
+                            <td><a href="/student/delete/{{this.studentNum}}" class="btn btn-danger">Remove</a></td>
                         </tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
-        {{#unless students}}
+        {{#if message}}
             <div class="col-md-12 text-center">
                 <strong>{{message}}</strong>
             </div>
-        {{/unless}}
+        {{/if}}
     </div>
-</div>
+    </div>
+    <a href="/students/add" class="btn btn-success float-right">Add New Student</a>
+</body>
+</html>
