@@ -177,10 +177,11 @@ app.get('/courses/add', (req, res) => {
 app.post('/courses/add', (req, res) => {
     collegeData.addCourse(req.body)
         .then(() => {
+            console.log('huhu');
             res.redirect('/courses');
         })
         .catch((err) => {
-            res.status(500).send("Unable to add course");
+            res.status(404).send("Unable to add course");
         });
 });
 

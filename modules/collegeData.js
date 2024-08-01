@@ -1,14 +1,21 @@
 const Sequelize = require('sequelize');
 
-var sequelize = new Sequelize('dkak9jdusi4j4', 'u2f1e3r7h7gljh', 'p8af0df3d04cddefeb9a935c9badc67b10c0bb817768c5696c750a4e9e58de7cd', {
-    host: 'c1i13pt05ja4ag.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
+
+const PGHOST='ep-summer-dew-a5li9ubv.us-east-2.aws.neon.tech'
+const PGDATABASE='web700db'
+const PGUSER='web700db_owner'
+const PGPASSWORD='ntBDeM4o5Uju'
+
+var sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
+    host: PGHOST,
     dialect: 'postgres',
-    port: 5432,
+    port: '5432',
     dialectOptions: {
         ssl: { rejectUnauthorized: false }
     },
     query: { raw: true }
 });
+
 
 // Defining the data models for students and courses
 const Student = sequelize.define('Student', {
@@ -44,6 +51,7 @@ module.exports.initialize = function () {
     return new Promise((resolve, reject) => {
         sequelize.sync()
             .then(() => {
+                console.log('connection successful!!');
                 resolve();
             })
             .catch((err) => {
@@ -169,15 +177,18 @@ module.exports.updateStudent = function (updatedStudent) {
 
 // Add a new course
 module.exports.addCourse = function (courseData) {
-    for (let prop in courseData) {
-        if (courseData[prop] === "") courseData[prop] = null;
-    }
+//     for (let prop in courseData) {
+//         if (courseData[prop] === "") courseData[prop] = null;
+//     }
     return new Promise((resolve, reject) => {
+        console.log('lool');
         Course.create(courseData)
-            .then(() => {
+            .then(
+                () => {
                 resolve();
             })
-            .catch((err) => {
+            .catch(
+                (err) => {
                 reject("Unable to create course: " + err);
             });
     });
